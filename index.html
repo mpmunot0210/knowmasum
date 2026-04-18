@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0a0b" />
+<title>Masum Munot — PM</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-2: #111114;
+  --ink: #f4f1ea;
+  --ink-dim: #8a8682;
+  --ink-faint: #3a3833;
+  --accent: #ff3b1f;
+  --accent-glow: rgba(255,59,31,0.35);
+  --cyan: #5cf0e0;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--bg); color: var(--ink); }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--mono);
+  font-size: 14px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+body::before {
+  content: ""; position: fixed; inset: 0;
+  background:
+    radial-gradient(1200px 800px at var(--mx, 50%) var(--my, 30%), rgba(255,59,31,0.08), transparent 60%),
+    radial-gradient(800px 600px at 80% 100%, rgba(255,59,31,0.04), transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: ""; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  pointer-events: none; opacity: 0.04; z-index: 1; mix-blend-mode: overlay;
+}
+
+.status {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 24px;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-dim); z-index: 20;
+  background: linear-gradient(to bottom, rgba(10,10,11,0.9), rgba(10,10,11,0));
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.status .left { display: flex; gap: 12px; align-items: center; }
+.status .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent-glow);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity:.4; transform:scale(1);} 50% { opacity:1; transform:scale(1.3);} }
+
+main { position: relative; z-index: 2; }
+
+/* ========== PAGE LAYOUT ========== */
+.section {
+  max-width: 1280px; margin: 0 auto;
+  padding: 56px 32px 48px;
+}
+.section:first-of-type { padding-top: 88px; }
+
+/* ========== HERO ========== */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  gap: 32px; align-items: end;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--ink-faint);
+}
+.hero .block-meta {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-dim); margin-bottom: 16px;
+}
+.hero h1 {
+  font-family: var(--serif); font-weight: 200;
+  font-size: clamp(52px, 8vw, 112px);
+  line-height: 0.88; letter-spacing: -0.04em;
+  font-variation-settings: 'opsz' 144;
+  margin-bottom: 8px;
+}
+.hero h1 em { color: var(--accent); font-style: italic; font-weight: 300; }
+.hero .prompt {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 22px); line-height: 1.4;
+  max-width: 52ch;
+  color: var(--ink-dim);
+  margin-top: 12px;
+}
+.hero .prompt em { color: var(--accent); font-style: italic; font-weight: 300; }
+.hero .identity {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: right;
+  line-height: 1.9;
+}
+.hero .identity .name {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(18px, 1.6vw, 22px); letter-spacing: -0.01em;
+  color: var(--ink); text-transform: none;
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+
+/* ========== IDEAS ========== */
+.ideas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px 0;
+}
+.idea-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.idea-row .phone-wrap { display: flex; justify-content: center; }
+.idea-row .copy { display: flex; flex-direction: column; gap: 12px; }
+.idea-row .marker { display: flex; align-items: baseline; gap: 14px; }
+.idea-row .num {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: 42px; line-height: 0.8;
+  font-variation-settings: 'opsz' 144;
+  color: var(--accent);
+}
+.idea-row .num.cyan { color: var(--cyan); }
+.idea-row .tag {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink-dim);
+}
+.idea-row .tag .sep { color: var(--ink-faint); margin: 0 8px; }
+.idea-row h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(20px, 2vw, 28px); line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.idea-row h2 em { color: var(--accent); font-style: italic; font-weight: 300; }
+.idea-row h2.cyan em { color: var(--cyan); }
+.idea-row .caption {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 14px; line-height: 1.5;
+  color: var(--ink-dim);
+  max-width: 42ch;
+}
+.idea-row .caption em { color: var(--accent); font-style: italic; }
+.idea-row .caption.cyan em { color: var(--cyan); }
+.idea-row .hint {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.idea-row .hint::before {
+  content: ""; display: inline-block;
+  width: 24px; height: 1px; background: var(--ink-faint);
+}
+
+/* PHONE */
+.phone {
+  width: 100%; max-width: 170px; aspect-ratio: 9 / 17;
+  background: linear-gradient(145deg, #1a1a1e, #0e0e11);
+  border-radius: 24px; padding: 8px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px var(--accent-glow);
+  position: relative;
+}
+.phone.cyan { box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px rgba(92,240,224,0.3); }
+.phone::before {
+  content: ""; position: absolute; top: 12px; left: 50%;
+  transform: translateX(-50%); width: 52px; height: 12px;
+  background: #000; border-radius: 10px; z-index: 2;
+}
+.phone-screen {
+  width: 100%; height: 100%;
+  background: var(--bg); border-radius: 18px;
+  overflow: hidden; position: relative;
+}
+
+/* DEMO 1 */
+.ba-demo { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); touch-action: none; user-select: none; }
+.ba-layer { position: absolute; inset: 0; padding: 30px 10px 10px; }
+.ba-layer .label { position: absolute; top: 26px; font-size: 6px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-dim); font-family: var(--mono); }
+.ba-before { background: #0e0e11; z-index: 1; }
+.ba-before .label { left: 10px; }
+.ba-after { background: linear-gradient(180deg, #0a0a0b, #141418); z-index: 2; clip-path: inset(0 0 0 50%); }
+.ba-after .label { right: 10px; color: var(--accent); }
+.mock-app { color: var(--ink); padding-top: 16px; }
+.mock-header { font-family: var(--serif); font-weight: 300; font-size: 11px; margin-bottom: 8px; }
+.mock-balance { font-family: var(--serif); font-weight: 300; font-size: 17px; letter-spacing: -0.02em; margin-bottom: 2px; }
+.mock-balance .pence { font-size: 9px; color: var(--ink-dim); }
+.mock-sub { font-size: 6px; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.mock-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-top: 1px solid var(--ink-faint); font-size: 8px; }
+.mock-row .merchant { color: var(--ink); }
+.mock-row .amt { color: var(--ink-dim); font-family: var(--mono); font-size: 7px; }
+.mock-row:last-child { border-bottom: 1px solid var(--ink-faint); }
+.ba-after .mock-balance { color: var(--accent); }
+.ba-after .insight-pill { background: var(--accent); color: var(--bg); padding: 6px 8px; border-radius: 6px; font-size: 7px; line-height: 1.35; margin-top: 6px; font-family: var(--mono); letter-spacing: 0.02em; animation: pillFloat 3s ease-in-out infinite; }
+.ba-after .insight-pill strong { font-weight: 500; }
+@keyframes pillFloat { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-2px);} }
+.ba-divider { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--accent); z-index: 3; box-shadow: 0 0 20px var(--accent-glow); }
+.ba-handle { position: absolute; top: 50%; left: -12px; width: 24px; height: 24px; background: var(--accent); border-radius: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 10px; font-weight: 700; cursor: grab; box-shadow: 0 4px 20px var(--accent-glow); animation: handlePulse 2s ease-in-out infinite; }
+@keyframes handlePulse { 0%,100% { box-shadow: 0 4px 20px var(--accent-glow); } 50% { box-shadow: 0 4px 30px var(--accent-glow), 0 0 0 5px rgba(255,59,31,0.15); } }
+
+/* DEMO 2 */
+.bc-demo { position: relative; width: 100%; height: 100%; background: var(--bg); padding: 24px 8px 8px; display: flex; flex-direction: column; color: var(--ink); overflow: hidden; }
+.bc-head { font-family: var(--serif); font-size: 8px; font-weight: 300; color: var(--ink-dim); padding-top: 4px; margin-bottom: 2px; }
+.bc-amount { font-family: var(--serif); font-weight: 200; font-size: 20px; line-height: 1; letter-spacing: -0.03em; color: var(--cyan); margin-bottom: 2px; font-variation-settings: 'opsz' 144; }
+.bc-amount .tick { font-family: var(--mono); font-size: 7px; color: var(--ink-dim); }
+.bc-sub { font-size: 6px; color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+.bc-sub .live { color: var(--cyan); }
+.bc-canvas { flex: 1; position: relative; margin: 3px 0; border-radius: 8px; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(92,240,224,0.06), transparent 60%), #0e0e11; }
+.bc-canvas svg { width: 100%; height: 100%; display: block; }
+.node { fill: var(--bg); stroke: var(--cyan); stroke-width: 1.2; transition: fill 0.3s; }
+.node.active { fill: var(--cyan); filter: drop-shadow(0 0 6px rgba(92,240,224,0.8)); }
+.node-label { fill: var(--ink-dim); font-family: var(--mono); font-size: 5.5px; letter-spacing: 0.1em; text-transform: uppercase; }
+.node-label.active { fill: var(--cyan); }
+.flow-line { stroke: var(--ink-faint); stroke-width: 0.8; fill: none; opacity: 0.5; }
+.token { fill: var(--cyan); filter: drop-shadow(0 0 4px rgba(92,240,224,0.9)); }
+.bc-controls { display: flex; gap: 4px; margin-top: 5px; font-size: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
+.bc-chip { flex: 1; padding: 5px 2px; background: var(--bg-2); border: 1px solid var(--ink-faint); color: var(--ink-dim); border-radius: 4px; text-align: center; cursor: pointer; transition: all 0.25s var(--ease); font-family: var(--mono); }
+.bc-chip:hover { border-color: var(--cyan); color: var(--cyan); }
+.bc-chip.active { background: var(--cyan); color: var(--bg); border-color: var(--cyan); box-shadow: 0 0 14px rgba(92,240,224,0.4); }
+.bc-footer { font-family: var(--mono); font-size: 5px; letter-spacing: 0.2em; color: var(--ink-faint); text-transform: uppercase; text-align: center; padding-top: 4px; }
+
+/* ========== EXPERIENCE ========== */
+.xp-head {
+  display: grid; grid-template-columns: 1fr auto; gap: 32px;
+  align-items: end; margin-bottom: 32px;
+}
+.xp-head .tagline {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(28px, 4.2vw, 48px);
+  line-height: 1.05; letter-spacing: -0.03em;
+  max-width: 22ch;
+}
+.xp-head .tagline em { color: var(--accent); font-style: italic; font-weight: 300; }
+.xp-head .section-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--accent);
+}
+.xp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-top: 1px solid var(--ink-faint);
+}
+.xp-col { padding: 24px 0; display: flex; flex-direction: column; gap: 12px; }
+.xp-col + .xp-col { border-left: 1px solid var(--ink-faint); padding-left: 36px; }
+.xp-col:first-child { padding-right: 36px; }
+.xp-role { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.xp-role .company {
+  font-family: var(--serif); font-weight: 400; font-style: italic;
+  font-size: clamp(18px, 1.6vw, 22px); letter-spacing: -0.01em;
+  color: var(--accent);
+}
+.xp-role .years {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.xp-sub {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ink-dim);
+  padding-bottom: 12px; border-bottom: 1px solid var(--ink-faint);
+}
+.xp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.xp-bullets li {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 14px; line-height: 1.45;
+  color: var(--ink);
+  padding-left: 20px;
+  position: relative;
+}
+.xp-bullets li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--accent); font-family: var(--mono); }
+.xp-bullets li strong { color: var(--accent); font-weight: 400; font-style: italic; }
+
+.now-row {
+  margin-top: 24px; padding: 20px 0;
+  border-top: 1px solid var(--ink-faint); border-bottom: 1px solid var(--ink-faint);
+  display: grid; grid-template-columns: 100px 1fr auto; gap: 20px; align-items: center;
+}
+.now-row .stamp { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+.now-row .text { font-family: var(--serif); font-weight: 300; font-size: clamp(16px, 2vw, 22px); line-height: 1.3; letter-spacing: -0.01em; }
+.now-row .text strong { color: var(--accent); font-weight: 400; font-style: italic; }
+.now-row .chip { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-dim); padding: 8px 14px; border: 1px solid var(--ink-faint); border-radius: 2px; }
+
+/* ========== CTA ========== */
+.cta-block {
+  margin-top: 32px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+}
+.cta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 20px;
+  border: 1px solid var(--ink-faint); border-radius: 2px;
+  font-size: 12px; letter-spacing: 0.05em;
+  transition: all 0.3s var(--ease);
+  position: relative; overflow: hidden;
+}
+.cta::before { content: ""; position: absolute; inset: 0; background: var(--accent); transform: translateX(-101%); transition: transform 0.4s var(--ease-out); z-index: 0; }
+.cta:hover::before, .cta:focus::before { transform: translateX(0); }
+.cta:hover, .cta:focus { color: var(--bg); border-color: var(--accent); }
+.cta span { position: relative; z-index: 1; }
+.cta .arrow { font-family: var(--mono); transition: transform 0.3s var(--ease); }
+.cta:hover .arrow { transform: translateX(6px); }
+.cta.primary { border-color: var(--accent); color: var(--accent); }
+.cta.primary:hover { color: var(--bg); }
+
+.footer-sig {
+  margin-top: 24px; padding-top: 16px;
+  border-top: 1px solid var(--ink-faint);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font-size: 9px; letter-spacing: 0.2em;
+  color: var(--ink-faint); text-transform: uppercase;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1100px) {
+  .ideas { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 860px) {
+  .section { padding: 48px 20px 32px; }
+  .section:first-of-type { padding-top: 72px; }
+  .hero { grid-template-columns: 1fr; gap: 20px; }
+  .hero .identity { text-align: left; }
+  .hero .identity .name { white-space: normal; }
+  .xp-head { grid-template-columns: 1fr; gap: 14px; }
+  .xp-grid { grid-template-columns: 1fr; }
+  .xp-col + .xp-col { border-left: none; border-top: 1px solid var(--ink-faint); padding-left: 0; padding-top: 24px; }
+  .xp-col:first-child { padding-right: 0; }
+  .now-row { grid-template-columns: 1fr; gap: 10px; }
+  .cta-block { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .idea-row { grid-template-columns: 1fr; gap: 20px; justify-items: center; }
+  .idea-row .copy { text-align: left; width: 100%; }
+  .status { padding: 12px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ========== TWEAKS PANEL ========== */
+.tweaks-panel {
+  position: fixed; bottom: 20px; right: 20px;
+  width: 340px; max-height: 85vh;
+  background: rgba(14,14,16,0.97);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 11px;
+  border-radius: 10px;
+  padding: 14px 16px;
+  z-index: 1000;
+  display: none;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.tweaks-panel.visible { display: block; }
+.tweaks-panel h3 {
+  margin: 0 0 10px; font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink-dim);
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tweaks-panel h3 button {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--ink-faint);
+  padding: 4px 8px; border-radius: 3px; cursor: pointer;
+}
+.tweaks-panel details { margin-top: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+.tweaks-panel summary {
+  cursor: pointer; font-size: 10px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--accent);
+  padding: 4px 0; list-style: none;
+}
+.tweaks-panel summary::-webkit-details-marker { display: none; }
+.tweaks-panel summary::before { content: "+ "; color: var(--ink-dim); }
+.tweaks-panel details[open] summary::before { content: "− "; }
+.tweaks-panel label {
+  display: block; margin-top: 8px;
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-dim);
+  margin-bottom: 3px;
+}
+.tweaks-panel input[type="text"],
+.tweaks-panel input[type="url"],
+.tweaks-panel input[type="email"],
+.tweaks-panel textarea {
+  width: 100%; padding: 6px 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--ink);
+  font-family: var(--mono); font-size: 11px;
+  border-radius: 3px;
+  resize: vertical;
+}
+.tweaks-panel textarea { min-height: 60px; font-family: var(--serif); font-size: 12px; }
+.tweaks-panel .bullet-list {
+  display: flex; flex-direction: column; gap: 5px; margin-top: 4px;
+}
+.tweaks-panel .bullet-list .row {
+  display: grid; grid-template-columns: 1fr auto; gap: 4px;
+}
+.tweaks-panel .bullet-list button {
+  padding: 4px 8px;
+  background: rgba(255,59,31,0.15);
+  border: 1px solid rgba(255,59,31,0.3);
+  color: var(--accent);
+  border-radius: 3px; font-size: 10px; cursor: pointer;
+}
+.tweaks-panel .add-btn {
+  margin-top: 6px; padding: 6px 10px;
+  background: transparent;
+  border: 1px dashed var(--ink-faint);
+  color: var(--ink-dim);
+  width: 100%; border-radius: 3px; cursor: pointer;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+}
+.tweaks-panel .add-btn:hover { color: var(--accent); border-color: var(--accent); }
+.tweaks-panel .hint-text {
+  font-size: 10px; color: var(--ink-faint);
+  font-family: var(--serif); font-style: italic;
+  margin-top: 4px;
+}
+
+em.accent { color: var(--accent); font-style: italic; font-weight: 300; }
+em.cyan { color: var(--cyan); font-style: italic; font-weight: 300; }
+strong.accent { color: var(--accent); font-weight: 400; font-style: italic; }
+</style>
+</head>
+
+<body>
+
+<div class="status">
+  <div class="left">
+    <span class="pulse"></span>
+    <span id="clock">—</span>
+  </div>
+  <span id="statusRight">MMXXVI</span>
+</div>
+
+<main>
+  <section class="section hero-section">
+    <div class="hero">
+      <div>
+        <div class="block-meta" id="metaLine"></div>
+        <h1 id="heroTitle"></h1>
+        <p class="prompt" id="heroPrompt"></p>
+      </div>
+      <div class="identity">
+        <div class="name" id="idName"></div>
+        <div id="idRole"></div>
+        <div id="idCity"></div>
+      </div>
+    </div>
+
+    <div class="ideas">
+      <!-- IDEA 01 -->
+      <div class="idea-row">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="ba-demo" id="baDemo">
+                <div class="ba-layer ba-before">
+                  <div class="label">Now</div>
+                  <div class="mock-app">
+                    <div class="mock-header">Hey —</div>
+                    <div class="mock-balance">£2,847<span class="pence">.22</span></div>
+                    <div class="mock-sub">Main account</div>
+                    <div class="mock-row"><span class="merchant">Tesco</span><span class="amt">−£43.12</span></div>
+                    <div class="mock-row"><span class="merchant">Uber</span><span class="amt">−£12.40</span></div>
+                    <div class="mock-row"><span class="merchant">Costa</span><span class="amt">−£4.80</span></div>
+                    <div class="mock-row"><span class="merchant">Spotify</span><span class="amt">−£11.99</span></div>
+                  </div>
+                </div>
+                <div class="ba-layer ba-after" id="baAfter">
+                  <div class="label">Change</div>
+                  <div class="mock-app">
+                    <div class="mock-header">Hey —</div>
+                    <div class="mock-balance">£2,847<span class="pence">.22</span></div>
+                    <div class="mock-sub">+ context</div>
+                    <div class="insight-pill"><strong>Heads up.</strong> 63% through eating-out budget, 11 days left. Reshuffle?</div>
+                    <div class="mock-row"><span class="merchant">Tesco</span><span class="amt">−£43.12</span></div>
+                    <div class="mock-row"><span class="merchant">Uber</span><span class="amt">−£12.40</span></div>
+                  </div>
+                </div>
+                <div class="ba-divider" id="baDivider"><div class="ba-handle">‹›</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copy">
+          <div class="marker">
+            <span class="num">01</span>
+            <span class="tag" id="idea1Tag"></span>
+          </div>
+          <h2 id="idea1Title"></h2>
+          <p class="caption" id="idea1Caption"></p>
+          <div class="hint" id="idea1Hint"></div>
+        </div>
+      </div>
+
+      <!-- IDEA 02 -->
+      <div class="idea-row">
+        <div class="phone-wrap">
+          <div class="phone cyan">
+            <div class="phone-screen">
+              <div class="bc-demo">
+                <div class="bc-head">Settlement · cross-chain</div>
+                <div class="bc-amount"><span id="bcAmt">12,450</span> <span class="tick">USDC</span></div>
+                <div class="bc-sub"><span class="live">● LIVE</span> · <span id="bcRoute">Ethereum → Base → Solana</span></div>
+                <div class="bc-canvas">
+                  <svg viewBox="0 0 200 240" preserveAspectRatio="xMidYMid meet">
+                    <path class="flow-line" d="M 40 40 Q 100 80 160 70" />
+                    <path class="flow-line" d="M 160 70 Q 100 130 40 160" />
+                    <path class="flow-line" d="M 40 160 Q 120 180 160 210" />
+                    <path class="flow-line" d="M 40 40 Q 100 110 40 160" stroke-dasharray="2 3" />
+                    <g id="nodeA"><circle class="node" cx="40" cy="40" r="7" /><text class="node-label" x="40" y="26" text-anchor="middle">ETH</text></g>
+                    <g id="nodeB"><circle class="node" cx="160" cy="70" r="7" /><text class="node-label" x="160" y="56" text-anchor="middle">BASE</text></g>
+                    <g id="nodeC"><circle class="node" cx="40" cy="160" r="7" /><text class="node-label" x="40" y="178" text-anchor="middle">SOL</text></g>
+                    <g id="nodeD"><circle class="node" cx="160" cy="210" r="7" /><text class="node-label" x="160" y="228" text-anchor="middle">ARB</text></g>
+                    <circle class="token" id="token" cx="40" cy="40" r="3.2" />
+                  </svg>
+                </div>
+                <div class="bc-controls">
+                  <div class="bc-chip active" data-speed="1">Normal</div>
+                  <div class="bc-chip" data-speed="2.2">Fast</div>
+                  <div class="bc-chip" data-speed="4">Agent</div>
+                </div>
+                <div class="bc-footer">Simulated settlement path</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copy">
+          <div class="marker">
+            <span class="num cyan">02</span>
+            <span class="tag" id="idea2Tag"></span>
+          </div>
+          <h2 class="cyan" id="idea2Title"></h2>
+          <p class="caption cyan" id="idea2Caption"></p>
+          <div class="hint" id="idea2Hint"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section xp-section">
+    <div class="xp-head">
+      <h2 class="tagline" id="xpTagline"></h2>
+      <div class="section-label">[ Experience ]</div>
+    </div>
+
+    <div class="xp-grid" id="xpGrid"></div>
+
+    <div class="now-row">
+      <span class="stamp">[ NOW ]</span>
+      <span class="text" id="nowText"></span>
+      <span class="chip" id="nowChip"></span>
+    </div>
+
+    <div class="cta-block" id="ctaBlock"></div>
+
+    <div class="footer-sig" id="footerSig"></div>
+  </section>
+</main>
+
+<!-- ========== TWEAKS PANEL ========== -->
+<div class="tweaks-panel" id="tweaks">
+  <h3>Tweaks <button id="resetBtn">Reset</button></h3>
+
+  <details open>
+    <summary>Identity</summary>
+    <label>Name</label><input type="text" data-key="name" />
+    <label>Role</label><input type="text" data-key="role" />
+    <label>City / year</label><input type="text" data-key="city" />
+    <label>File meta (top-left)</label><input type="text" data-key="meta" />
+    <label>Status (top-right)</label><input type="text" data-key="status" />
+  </details>
+
+  <details>
+    <summary>Hero</summary>
+    <label>Hero title <span class="hint-text">(use * for accent)</span></label>
+    <input type="text" data-key="heroTitle" />
+    <label>Prompt <span class="hint-text">(use * for accent)</span></label>
+    <textarea data-key="heroPrompt"></textarea>
+  </details>
+
+  <details>
+    <summary>Idea 01 · Fintech</summary>
+    <label>Tag line</label><input type="text" data-key="idea1Tag" />
+    <label>Title <span class="hint-text">(* for accent)</span></label><input type="text" data-key="idea1Title" />
+    <label>Caption <span class="hint-text">(* for accent)</span></label><textarea data-key="idea1Caption"></textarea>
+    <label>Hint</label><input type="text" data-key="idea1Hint" />
+  </details>
+
+  <details>
+    <summary>Idea 02 · Blockchain</summary>
+    <label>Tag line</label><input type="text" data-key="idea2Tag" />
+    <label>Title <span class="hint-text">(* for cyan accent)</span></label><input type="text" data-key="idea2Title" />
+    <label>Caption <span class="hint-text">(* for cyan)</span></label><textarea data-key="idea2Caption"></textarea>
+    <label>Hint</label><input type="text" data-key="idea2Hint" />
+  </details>
+
+  <details>
+    <summary>Experience tagline</summary>
+    <label>Tagline <span class="hint-text">(* for accent)</span></label>
+    <textarea data-key="xpTagline"></textarea>
+  </details>
+
+  <details>
+    <summary>Experience — Column 1</summary>
+    <label>Company</label><input type="text" data-key="col1Company" />
+    <label>Years</label><input type="text" data-key="col1Years" />
+    <label>Subtitle</label><input type="text" data-key="col1Sub" />
+    <label>Bullets <span class="hint-text">(** for bold accent)</span></label>
+    <div class="bullet-list" data-bullets="col1Bullets"></div>
+    <button class="add-btn" data-add="col1Bullets">+ Add bullet</button>
+  </details>
+
+  <details>
+    <summary>Experience — Column 2</summary>
+    <label>Company / degree</label><input type="text" data-key="col2Company" />
+    <label>Years</label><input type="text" data-key="col2Years" />
+    <label>Subtitle</label><input type="text" data-key="col2Sub" />
+    <label>Bullets <span class="hint-text">(** for bold accent)</span></label>
+    <div class="bullet-list" data-bullets="col2Bullets"></div>
+    <button class="add-btn" data-add="col2Bullets">+ Add bullet</button>
+  </details>
+
+  <details>
+    <summary>Now line</summary>
+    <label>Text <span class="hint-text">(** for bold accent)</span></label>
+    <textarea data-key="nowText"></textarea>
+    <label>Chip</label><input type="text" data-key="nowChip" />
+  </details>
+
+  <details>
+    <summary>CTAs</summary>
+    <label>LinkedIn URL</label><input type="url" data-key="linkedinUrl" />
+    <label>LinkedIn label</label><input type="text" data-key="linkedinLabel" />
+    <label>Email address</label><input type="email" data-key="email" />
+    <label>Email label</label><input type="text" data-key="emailLabel" />
+    <label>Email subject</label><input type="text" data-key="emailSubject" />
+    <label>Email body</label><textarea data-key="emailBody"></textarea>
+    <label>vCard label</label><input type="text" data-key="vcardLabel" />
+  </details>
+
+  <details>
+    <summary>Footer</summary>
+    <label>Footer left</label><input type="text" data-key="footerLeft" />
+    <label>Footer middle</label><input type="text" data-key="footerMiddle" />
+    <label>Footer right</label><input type="text" data-key="footerRight" />
+  </details>
+</div>
+
+<script>
+// ========== CONTENT CONFIG (editable via Tweaks panel) ==========
+const DEFAULTS = /*EDITMODE-BEGIN*/{
+  "name": "Masum Munot",
+  "role": "Product Manager",
+  "city": "London · 2026",
+  "meta": "FILE / PM.001 · MASUM MUNOT",
+  "status": "MMXXVI",
+
+  "heroTitle": "hello*.*",
+  "heroPrompt": "Skip the CV. Let me *show you* two ideas — one in fintech, one in blockchain.",
+
+  "idea1Tag": "Fintech · Before / after",
+  "idea1Title": "What's there. *What could be.*",
+  "idea1Caption": "Your balance tells you *what happened.* Give the same surface a little context — budgets, tempo, intent — and it can tell you *what's about to.*",
+  "idea1Hint": "Drag the divider",
+
+  "idea2Tag": "Blockchain · Watch it settle",
+  "idea2Title": "Value should move. *Not wait.*",
+  "idea2Caption": "Cross-chain settlement *routed like packets* — pick a lane, or let an agent pick the cheapest one. Seconds, not days; treasury that actually breathes.",
+  "idea2Hint": "Try the speed chips",
+
+  "xpTagline": "The thinking came from *billions of rows* and *a slow-burn MBA.*",
+
+  "col1Company": "J.P. Morgan",
+  "col1Years": "2020 — 2024",
+  "col1Sub": "Product Manager · Payments · Liquidity & Account Services",
+  "col1Bullets": [
+    "**4 years** in Liquidity & Account Services within Payments",
+    "Led a **70k+ account** migration programme end-to-end",
+    "Owned rails across **SEPA, Bacs, RTP and RTGS**",
+    "Drove **SWIFT MT → ISO 20022** (pacs.008) adoption",
+    "Managed a cross-functional **team of 7**"
+  ],
+
+  "col2Company": "MBA",
+  "col2Years": "2024 — 2026",
+  "col2Sub": "Focus · Fintech & Blockchain Technology",
+  "col2Bullets": [
+    "Concentration in **Fintech and Blockchain Technology**",
+    "Core: **Design Thinking** · shaping the unknown",
+    "Core: **Strategy & Competition** · where to play, how to win",
+    "Core: **Operationalising Value** · making strategy land",
+    "Core: **Go-To-Market Strategy** · from thesis to traction"
+  ],
+
+  "nowText": "Looking for **product leadership** at a fintech where data is the moat.",
+  "nowChip": "London · open to relocate",
+
+  "linkedinUrl": "https://linkedin.com/in/masummunot",
+  "linkedinLabel": "Let's connect · LinkedIn",
+  "email": "mpmunot02@gmail.com",
+  "emailLabel": "Write to me · pre-filled",
+  "emailSubject": "We met / saw your page",
+  "emailBody": "Hi Masum,\n\nWent through your page and the two demos. Keen to talk about [idea 1 / idea 2 / something else].\n\n— [Your name]\n[Company / role]",
+  "vcardLabel": "Save my contact",
+
+  "footerLeft": "Masum Munot",
+  "footerMiddle": "mpmunot02@gmail.com",
+  "footerRight": "21·04·2026"
+}/*EDITMODE-END*/;
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('cv-tweaks');
+    if (raw) return { ...DEFAULTS, ...JSON.parse(raw) };
+  } catch {}
+  return { ...DEFAULTS };
+}
+function saveState() {
+  try { localStorage.setItem('cv-tweaks', JSON.stringify(state)); } catch {}
+}
+
+// Format text with *italic-accent* and **bold-accent** markers
+function fmt(text, cyanContext = false) {
+  if (!text) return '';
+  const cls = cyanContext ? 'cyan' : 'accent';
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*([^*]+)\*\*/g, `<strong class="${cls}">$1</strong>`)
+    .replace(/\*([^*]+)\*/g, `<em class="${cls}">$1</em>`)
+    .replace(/\n/g, '<br/>');
+}
+
+function render() {
+  // Identity
+  document.getElementById('statusRight').textContent = state.status;
+  document.getElementById('metaLine').textContent = state.meta;
+  document.getElementById('idName').textContent = state.name;
+  document.getElementById('idRole').textContent = state.role;
+  document.getElementById('idCity').textContent = state.city;
+
+  // Hero
+  document.getElementById('heroTitle').innerHTML = fmt(state.heroTitle);
+  document.getElementById('heroPrompt').innerHTML = fmt(state.heroPrompt);
+
+  // Ideas
+  document.getElementById('idea1Tag').innerHTML = state.idea1Tag.replace(/·/g, '<span class="sep">·</span>');
+  document.getElementById('idea1Title').innerHTML = fmt(state.idea1Title);
+  document.getElementById('idea1Caption').innerHTML = fmt(state.idea1Caption);
+  document.getElementById('idea1Hint').textContent = state.idea1Hint;
+
+  document.getElementById('idea2Tag').innerHTML = state.idea2Tag.replace(/·/g, '<span class="sep">·</span>');
+  document.getElementById('idea2Title').innerHTML = fmt(state.idea2Title, true);
+  document.getElementById('idea2Caption').innerHTML = fmt(state.idea2Caption, true);
+  document.getElementById('idea2Hint').textContent = state.idea2Hint;
+
+  // Experience
+  document.getElementById('xpTagline').innerHTML = fmt(state.xpTagline);
+
+  const grid = document.getElementById('xpGrid');
+  grid.innerHTML = `
+    <div class="xp-col">
+      <div class="xp-role">
+        <span class="company">${esc(state.col1Company)}</span>
+        <span class="years">${esc(state.col1Years)}</span>
+      </div>
+      <div class="xp-sub">${esc(state.col1Sub)}</div>
+      <ul class="xp-bullets">
+        ${state.col1Bullets.map(b => `<li>${fmt(b)}</li>`).join('')}
+      </ul>
+    </div>
+    <div class="xp-col">
+      <div class="xp-role">
+        <span class="company">${esc(state.col2Company)}</span>
+        <span class="years">${esc(state.col2Years)}</span>
+      </div>
+      <div class="xp-sub">${esc(state.col2Sub)}</div>
+      <ul class="xp-bullets">
+        ${state.col2Bullets.map(b => `<li>${fmt(b)}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  document.getElementById('nowText').innerHTML = fmt(state.nowText);
+  document.getElementById('nowChip').textContent = state.nowChip;
+
+  // CTAs
+  const subj = encodeURIComponent(state.emailSubject);
+  const body = encodeURIComponent(state.emailBody);
+  const mailto = `mailto:${state.email}?subject=${subj}&body=${body}`;
+  document.getElementById('ctaBlock').innerHTML = `
+    <a class="cta primary" href="${esc(state.linkedinUrl)}" target="_blank" rel="noopener">
+      <span>${esc(state.linkedinLabel)}</span><span class="arrow">→</span>
+    </a>
+    <a class="cta" href="${mailto}">
+      <span>${esc(state.emailLabel)}</span><span class="arrow">→</span>
+    </a>
+    <button class="cta" onclick="downloadVCard()">
+      <span>${esc(state.vcardLabel)}</span><span class="arrow">↓</span>
+    </button>
+  `;
+
+  document.getElementById('footerSig').innerHTML = `
+    <span>${esc(state.footerLeft)}</span>
+    <span>${esc(state.footerMiddle)}</span>
+    <span>${esc(state.footerRight)}</span>
+  `;
+
+  document.title = `${state.name} — ${state.role}`;
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function downloadVCard() {
+  const v = [
+    "BEGIN:VCARD","VERSION:3.0",
+    "FN:" + state.name,
+    "TITLE:" + state.role,
+    "EMAIL:" + state.email,
+    "URL:" + state.linkedinUrl,
+    "END:VCARD"
+  ].join("\n");
+  const blob = new Blob([v], { type: "text/vcard" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = state.name.replace(/\W+/g,'_') + '.vcf';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+// Clock + cursor glow
+function tickClock() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  document.getElementById('clock').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+}
+tickClock(); setInterval(tickClock, 1000);
+document.addEventListener('mousemove', e => {
+  document.body.style.setProperty('--mx', (e.clientX / window.innerWidth * 100) + '%');
+  document.body.style.setProperty('--my', (e.clientY / window.innerHeight * 100) + '%');
+}, { passive: true });
+
+// ========== DEMO 1: BEFORE/AFTER ==========
+(function() {
+  const demo = document.getElementById('baDemo');
+  const divider = document.getElementById('baDivider');
+  const after = document.getElementById('baAfter');
+  let dragging = false;
+  function setPct(pct) {
+    pct = Math.max(4, Math.min(96, pct));
+    divider.style.left = pct + '%';
+    after.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+  }
+  setPct(50);
+  function moveFromEvent(e) {
+    if (!dragging) return;
+    const rect = demo.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    setPct((x / rect.width) * 100);
+  }
+  demo.addEventListener('mousedown', e => { dragging = true; moveFromEvent(e); });
+  demo.addEventListener('touchstart', e => { dragging = true; moveFromEvent(e); }, { passive: true });
+  window.addEventListener('mousemove', moveFromEvent);
+  window.addEventListener('touchmove', moveFromEvent, { passive: true });
+  window.addEventListener('mouseup', () => dragging = false);
+  window.addEventListener('touchend', () => dragging = false);
+  setTimeout(() => {
+    let p = 50, dir = 1, steps = 0;
+    const id = setInterval(() => {
+      p += dir * 2.5;
+      if (p >= 72) dir = -1;
+      if (p <= 28) dir = 1;
+      steps++; setPct(p);
+      if (steps > 36) { clearInterval(id); setPct(50); }
+    }, 28);
+  }, 1400);
+})();
+
+// ========== DEMO 2: BLOCKCHAIN ==========
+(function() {
+  const token = document.getElementById('token');
+  const nodes = { A:{id:'nodeA',x:40,y:40}, B:{id:'nodeB',x:160,y:70}, C:{id:'nodeC',x:40,y:160}, D:{id:'nodeD',x:160,y:210} };
+  const path = ['A','B','C','D','A'];
+  const amtEl = document.getElementById('bcAmt');
+  const routeEl = document.getElementById('bcRoute');
+  const routes = { 1:'Ethereum → Base → Solana', 2.2:'Base → Solana · fast lane', 4:'Agent-routed · least cost' };
+  let speed = 1, t = 0, seg = 0, lastTs = performance.now();
+  function setActive(key) {
+    Object.values(nodes).forEach(n => {
+      const g = document.getElementById(n.id);
+      g.querySelector('.node').classList.remove('active');
+      g.querySelector('.node-label').classList.remove('active');
+    });
+    const g = document.getElementById(nodes[key].id);
+    g.querySelector('.node').classList.add('active');
+    g.querySelector('.node-label').classList.add('active');
+  }
+  function frame(ts) {
+    const dt = Math.min(ts - lastTs, 60); lastTs = ts;
+    t += (dt / 1800) * speed;
+    if (t >= 1) {
+      t = 0; seg = (seg + 1) % (path.length - 1);
+      setActive(path[seg + 1]);
+      const base = 12450;
+      const rand = Math.floor(Math.random() * 250) - 125;
+      amtEl.textContent = (base + rand).toLocaleString('en-GB');
+    }
+    const from = nodes[path[seg]], to = nodes[path[seg + 1]];
+    const x = from.x + (to.x - from.x) * t;
+    const y = from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * 14;
+    token.setAttribute('cx', x); token.setAttribute('cy', y);
+    requestAnimationFrame(frame);
+  }
+  setActive('A'); requestAnimationFrame(frame);
+  document.querySelectorAll('.bc-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.bc-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      speed = +chip.dataset.speed;
+      routeEl.textContent = routes[speed];
+    });
+  });
+})();
+
+// ========== TWEAKS PANEL ==========
+function updateKey(key, val) {
+  state[key] = val;
+  saveState();
+  render();
+  try {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  } catch {}
+}
+
+function syncPanel() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    el.value = state[el.dataset.key] || '';
+  });
+  document.querySelectorAll('[data-bullets]').forEach(wrap => {
+    renderBullets(wrap);
+  });
+}
+
+function renderBullets(wrap) {
+  const key = wrap.dataset.bullets;
+  const bullets = state[key] || [];
+  wrap.innerHTML = '';
+  bullets.forEach((b, i) => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `
+      <input type="text" value="${esc(b)}" />
+      <button title="Remove">×</button>
+    `;
+    row.querySelector('input').addEventListener('input', e => {
+      const next = [...state[key]];
+      next[i] = e.target.value;
+      updateKey(key, next);
+    });
+    row.querySelector('button').addEventListener('click', () => {
+      const next = state[key].filter((_, j) => j !== i);
+      updateKey(key, next);
+      renderBullets(wrap);
+    });
+    wrap.appendChild(row);
+  });
+}
+
+// Wire inputs
+document.querySelectorAll('[data-key]').forEach(el => {
+  el.addEventListener('input', e => {
+    updateKey(el.dataset.key, e.target.value);
+  });
+});
+document.querySelectorAll('[data-add]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.add;
+    const next = [...(state[key] || []), 'New item'];
+    updateKey(key, next);
+    renderBullets(document.querySelector(`[data-bullets="${key}"]`));
+  });
+});
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (!confirm('Reset all content to defaults?')) return;
+  state = { ...DEFAULTS };
+  saveState();
+  render();
+  syncPanel();
+  try {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: DEFAULTS }, '*');
+  } catch {}
+});
+
+// Edit-mode protocol
+window.addEventListener('message', (e) => {
+  const msg = e.data;
+  if (!msg || !msg.type) return;
+  if (msg.type === '__activate_edit_mode') {
+    document.getElementById('tweaks').classList.add('visible');
+    syncPanel();
+  } else if (msg.type === '__deactivate_edit_mode') {
+    document.getElementById('tweaks').classList.remove('visible');
+  }
+});
+
+try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch {}
+
+// Initial render
+render();
+syncPanel();
+</script>
+
+</body>
+</html>
