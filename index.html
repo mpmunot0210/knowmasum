@@ -196,11 +196,14 @@ main { position: relative; z-index: 2; }
 
 /* PHONE */
 .phone {
-  width: 100%; max-width: 170px; aspect-ratio: 9 / 17;
+  width: 170px; max-width: 100%;
+  aspect-ratio: 9 / 17;
+  min-height: 320px;
   background: linear-gradient(145deg, #1a1a1e, #0e0e11);
   border-radius: 24px; padding: 8px;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px var(--accent-glow);
   position: relative;
+  flex-shrink: 0;
 }
 .phone.cyan { box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px rgba(248,220,170,0.22); }
 .phone::before {
@@ -520,6 +523,7 @@ main { position: relative; z-index: 2; }
 @media (max-width: 560px) {
   .idea-row { grid-template-columns: 1fr; gap: 20px; justify-items: center; }
   .idea-row .copy { text-align: left; width: 100%; }
+  .idea-row .phone-wrap { width: 100%; min-height: 330px; align-items: flex-start; }
   .status { padding: 12px 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
