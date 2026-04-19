@@ -12,14 +12,23 @@
 
 <style>
 :root {
+  /* ===== CALM WARM PALETTE ===== */
   --bg: #0a0a0b;
-  --bg-2: #111114;
-  --ink: #f4f1ea;
-  --ink-dim: #8a8682;
-  --ink-faint: #3a3833;
-  --accent: #ff3b1f;
-  --accent-glow: rgba(255,59,31,0.35);
-  --cyan: #5cf0e0;
+  --bg-2: #141416;
+  --ink: #faf8ee;            /* warm cream — primary text */
+  --ink-dim: #8f8a7e;         /* muted cream */
+  --ink-faint: #3a3833;       /* hairline borders */
+
+  /* Accent system — each colour has ONE primary job */
+  --accent: #6d2a35;          /* deep burgundy — for the hello dot, 01/02 numbers, italic accents in headings */
+  --accent-soft: #c99aa1;     /* dusty rose — secondary italic accents, hover states */
+  --accent-peach: #f8dcaa;    /* warm peach — eyebrows, "change" label, demo-2 replacement for cyan */
+  --accent-olive: #b0a94a;    /* olive — CTAs, live dot, "acting" moments */
+
+  /* Kept legacy token names for backwards compat — remapped */
+  --accent-glow: rgba(109,42,53,0.25);
+  --cyan: var(--accent-peach);  /* demo 2 now uses peach instead of cyan */
+
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --serif: 'Fraunces', Georgia, serif;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -30,7 +39,7 @@ html, body { background: var(--bg); color: var(--ink); }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--mono);
-  font-size: 14px; line-height: 1.5;
+  font-size: 16px; line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -40,14 +49,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 body::before {
   content: ""; position: fixed; inset: 0;
   background:
-    radial-gradient(1200px 800px at var(--mx, 50%) var(--my, 30%), rgba(255,59,31,0.08), transparent 60%),
-    radial-gradient(800px 600px at 80% 100%, rgba(255,59,31,0.04), transparent 70%);
+    radial-gradient(1400px 900px at 70% -10%, rgba(109,42,53,0.08), transparent 55%),
+    radial-gradient(900px 700px at 20% 110%, rgba(176,169,74,0.04), transparent 60%);
   pointer-events: none; z-index: 0;
-}
-body::after {
-  content: ""; position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
-  pointer-events: none; opacity: 0.04; z-index: 1; mix-blend-mode: overlay;
 }
 
 .status {
@@ -86,24 +90,38 @@ main { position: relative; z-index: 2; }
 }
 .hero .block-meta {
   font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--ink-dim); margin-bottom: 16px;
+  color: var(--ink-dim); margin-bottom: 20px;
 }
 .hero h1 {
-  font-family: var(--serif); font-weight: 200;
+  font-family: var(--serif); font-weight: 400;
   font-size: clamp(52px, 8vw, 112px);
   line-height: 0.88; letter-spacing: -0.04em;
   font-variation-settings: 'opsz' 144;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
 }
-.hero h1 em { color: var(--accent); font-style: italic; font-weight: 300; }
-.hero .prompt {
-  font-family: var(--serif); font-weight: 300;
-  font-size: clamp(16px, 1.6vw, 22px); line-height: 1.4;
-  max-width: 52ch;
+.hero h1 em { color: var(--accent);  font-weight: 400; }
+
+.hero-caption {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
   color: var(--ink-dim);
-  margin-top: 12px;
+  max-width: 54ch;
+  margin-bottom: 24px;
+  font-weight: 400;
 }
-.hero .prompt em { color: var(--accent); font-style: italic; font-weight: 300; }
+.hero-caption em { color: var(--accent-soft); letter-spacing: 0; font-weight: 500; }
+
+.hero .prompt {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(19px, 1.8vw, 26px); line-height: 1.45;
+  max-width: 44ch;
+  color: var(--ink);
+  margin-top: 0;
+}
+.hero .prompt em { color: var(--accent-soft); font-weight: 600; }
+
 .hero .identity {
   font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.15em; text-transform: uppercase;
@@ -112,8 +130,8 @@ main { position: relative; z-index: 2; }
   line-height: 1.9;
 }
 .hero .identity .name {
-  font-family: var(--serif); font-weight: 300; font-style: italic;
-  font-size: clamp(18px, 1.6vw, 22px); letter-spacing: -0.01em;
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(19px, 1.7vw, 24px); letter-spacing: -0.01em;
   color: var(--ink); text-transform: none;
   margin-bottom: 6px;
   white-space: nowrap;
@@ -136,7 +154,7 @@ main { position: relative; z-index: 2; }
 .idea-row .copy { display: flex; flex-direction: column; gap: 12px; }
 .idea-row .marker { display: flex; align-items: baseline; gap: 14px; }
 .idea-row .num {
-  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-family: var(--serif);  font-weight: 400;
   font-size: 42px; line-height: 0.8;
   font-variation-settings: 'opsz' 144;
   color: var(--accent);
@@ -149,20 +167,21 @@ main { position: relative; z-index: 2; }
 }
 .idea-row .tag .sep { color: var(--ink-faint); margin: 0 8px; }
 .idea-row h2 {
-  font-family: var(--serif); font-weight: 300;
-  font-size: clamp(20px, 2vw, 28px); line-height: 1.15;
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2;
   letter-spacing: -0.02em;
 }
-.idea-row h2 em { color: var(--accent); font-style: italic; font-weight: 300; }
-.idea-row h2.cyan em { color: var(--cyan); }
+.idea-row h2 em { color: var(--accent); font-weight: 700; }
+.idea-row h2.cyan em { color: var(--cyan); font-weight: 700; }
 .idea-row .caption {
-  font-family: var(--serif); font-weight: 300;
-  font-size: 14px; line-height: 1.5;
-  color: var(--ink-dim);
-  max-width: 42ch;
+  font-family: var(--serif); font-weight: 400;
+  font-size: 17px; line-height: 1.55;
+  color: var(--ink);
+  max-width: 44ch;
+  opacity: 0.92;
 }
-.idea-row .caption em { color: var(--accent); font-style: italic; }
-.idea-row .caption.cyan em { color: var(--cyan); }
+.idea-row .caption em { color: var(--accent-soft); font-weight: 600; }
+.idea-row .caption.cyan em { color: var(--accent-peach); font-weight: 600; }
 .idea-row .hint {
   font-family: var(--mono); font-size: 9px;
   letter-spacing: 0.22em; text-transform: uppercase;
@@ -183,7 +202,7 @@ main { position: relative; z-index: 2; }
   box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px var(--accent-glow);
   position: relative;
 }
-.phone.cyan { box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px rgba(92,240,224,0.3); }
+.phone.cyan { box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px -16px rgba(0,0,0,0.8), 0 0 70px -20px rgba(248,220,170,0.22); }
 .phone::before {
   content: ""; position: absolute; top: 12px; left: 50%;
   transform: translateX(-50%); width: 52px; height: 12px;
@@ -204,8 +223,8 @@ main { position: relative; z-index: 2; }
 .ba-after { background: linear-gradient(180deg, #0a0a0b, #141418); z-index: 2; clip-path: inset(0 0 0 50%); }
 .ba-after .label { right: 10px; color: var(--accent); }
 .mock-app { color: var(--ink); padding-top: 16px; }
-.mock-header { font-family: var(--serif); font-weight: 300; font-size: 11px; margin-bottom: 8px; }
-.mock-balance { font-family: var(--serif); font-weight: 300; font-size: 17px; letter-spacing: -0.02em; margin-bottom: 2px; }
+.mock-header { font-family: var(--serif); font-weight: 400; font-size: 11px; margin-bottom: 8px; }
+.mock-balance { font-family: var(--serif); font-weight: 400; font-size: 17px; letter-spacing: -0.02em; margin-bottom: 2px; }
 .mock-balance .pence { font-size: 9px; color: var(--ink-dim); }
 .mock-sub { font-size: 6px; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
 .mock-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-top: 1px solid var(--ink-faint); font-size: 8px; }
@@ -220,25 +239,173 @@ main { position: relative; z-index: 2; }
 .ba-handle { position: absolute; top: 50%; left: -12px; width: 24px; height: 24px; background: var(--accent); border-radius: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 10px; font-weight: 700; cursor: grab; box-shadow: 0 4px 20px var(--accent-glow); animation: handlePulse 2s ease-in-out infinite; }
 @keyframes handlePulse { 0%,100% { box-shadow: 0 4px 20px var(--accent-glow); } 50% { box-shadow: 0 4px 30px var(--accent-glow), 0 0 0 5px rgba(255,59,31,0.15); } }
 
+/* ========== GROCERY LOYALTY MOCK (Demo 1 content) ========== */
+/* Calm palette — deep charcoal with cream text, peach/olive accents */
+.cc-app {
+  position: relative; width: 100%; height: 100%;
+  padding: 6px 10px 8px;
+  font-family: var(--mono);
+  color: var(--ink);
+  background: #18161a;
+  overflow: hidden;
+}
+.cc-app--smart { background: linear-gradient(180deg, #1b181d 0%, #141216 70%, #111014 100%); }
+
+/* Phone-chrome cues: faux status bar */
+.cc-statusbar { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 6px; color: rgba(250,248,238,0.5); letter-spacing: 0.05em; padding: 2px 2px 4px; }
+.cc-sb-dots { letter-spacing: -0.05em; font-size: 5px; }
+
+/* Branded app-bar */
+.cc-appbar { display: flex; align-items: center; gap: 6px; padding: 4px 2px 6px; border-bottom: 1px solid rgba(250,248,238,0.08); }
+.cc-appbar-more { margin-left: auto; color: rgba(250,248,238,0.4); font-size: 10px; letter-spacing: -1px; line-height: 0.5; padding-bottom: 3px; }
+.cc-brand {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1;
+  font-variation-settings: 'opsz' 144;
+}
+.cc-brand-badge {
+  font-size: 5.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  background: rgba(248,220,170,0.1);
+  padding: 2px 5px; border-radius: 8px;
+  color: var(--accent-peach);
+  border: 1px solid rgba(248,220,170,0.3);
+  margin-left: auto;
+  font-family: var(--mono);
+}
+
+/* Barcode cue */
+.cc-barcode {
+  position: relative;
+  width: 18px; height: 12px;
+  background: var(--ink);
+  border-radius: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 1.5px 2px;
+  flex-shrink: 0;
+}
+.cc-barcode::before {
+  content: "";
+  width: 100%; height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #18161a 0px, #18161a 1px,
+    transparent 1px, transparent 2px,
+    #18161a 2px, #18161a 2.5px,
+    transparent 2.5px, transparent 3.5px
+  );
+}
+
+/* Screen title */
+.cc-screen-title {
+  font-family: var(--mono);
+  font-size: 6.5px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(250,248,238,0.45);
+  margin: 6px 0 4px;
+}
+
+/* BEFORE — plain points + receipt list */
+.cc-points { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1; margin-top: 4px; letter-spacing: -0.02em; color: var(--ink); }
+.cc-points-unit { font-size: 9px; color: rgba(250,248,238,0.5); margin-left: 3px; font-family: var(--mono); letter-spacing: 0.05em; }
+.cc-points-sub { font-size: 6px; letter-spacing: 0.12em; color: var(--accent-peach); margin-top: 2px; margin-bottom: 10px; font-family: var(--mono); opacity: 0.85; }
+.cc-section-head { font-size: 6px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,238,0.45); margin-bottom: 6px; padding-top: 4px; border-top: 1px solid rgba(250,248,238,0.08); }
+.cc-receipt { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 7.5px; border-bottom: 1px solid rgba(250,248,238,0.06); }
+.cc-receipt-date { color: rgba(250,248,238,0.8); font-family: var(--serif); font-size: 8.5px; font-weight: 400; }
+.cc-receipt-amt { color: rgba(250,248,238,0.55); font-family: var(--mono); font-size: 7px; }
+
+/* AFTER — tabs + staples + categories + pattern */
+.cc-tabs {
+  display: flex; gap: 3px; padding: 3px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(250,248,238,0.06);
+  border-radius: 5px;
+  margin: 4px 0 8px;
+}
+.cc-tab {
+  flex: 1; padding: 4px 2px;
+  font-size: 6px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(250,248,238,0.5);
+  background: transparent; border: none; border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--mono); font-weight: 500;
+  transition: all 0.25s var(--ease);
+}
+.cc-tab:hover { color: var(--ink); }
+.cc-tab.active {
+  background: var(--accent-peach);
+  color: #1a1518;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+
+.cc-smart { display: flex; flex-direction: column; gap: 6px; }
+.cc-smart-head { display: flex; align-items: baseline; justify-content: space-between; gap: 4px; }
+.cc-smart-title { font-family: var(--serif); font-weight: 400; font-size: 9px; color: var(--ink); }
+.cc-smart-sub { font-size: 5.5px; letter-spacing: 0.1em; color: rgba(250,248,238,0.4); text-transform: uppercase; }
+
+.cc-staples { display: flex; flex-direction: column; gap: 2px; }
+.cc-staple { display: grid; grid-template-columns: 10px 1fr auto; gap: 5px; align-items: center; padding: 3px 0; border-bottom: 1px solid rgba(250,248,238,0.06); }
+.cc-staple-rank { font-family: var(--mono); font-size: 6px; color: var(--accent-peach); letter-spacing: 0.05em; opacity: 0.75; }
+.cc-staple-name { font-family: var(--serif); font-weight: 400; font-size: 8px; color: var(--ink); line-height: 1.2; }
+.cc-staple-name .cat { display: block; font-family: var(--mono); font-size: 5px; color: rgba(250,248,238,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0; }
+.cc-staple-freq {
+  font-family: var(--mono); font-size: 6.5px;
+  color: var(--accent-olive);
+  background: rgba(176,169,74,0.1);
+  padding: 2px 4px; border-radius: 3px;
+  white-space: nowrap; letter-spacing: 0.02em;
+  border: 1px solid rgba(176,169,74,0.2);
+}
+
+.cc-cat-head { font-size: 5.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,238,0.4); margin-top: 3px; }
+.cc-cats { display: flex; flex-direction: column; gap: 3px; }
+.cc-cat-row { display: grid; grid-template-columns: 38px 1fr 18px; gap: 4px; align-items: center; }
+.cc-cat-name { font-family: var(--serif); font-size: 7px; font-weight: 400; color: rgba(250,248,238,0.8); }
+.cc-cat-bar { height: 3px; background: rgba(250,248,238,0.08); border-radius: 2px; overflow: hidden; position: relative; }
+.cc-cat-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-peach), var(--accent-olive));
+  border-radius: 2px;
+  transition: width 0.45s var(--ease-out);
+}
+.cc-cat-pct { font-family: var(--mono); font-size: 6px; color: rgba(250,248,238,0.5); text-align: right; }
+
+/* Pattern card — the "aha" moment gets the burgundy to feel different from surrounding peach/olive */
+.cc-pattern {
+  margin-top: 4px;
+  background: rgba(109,42,53,0.22);
+  border: 1px solid rgba(201,154,161,0.3);
+  color: var(--accent-soft);
+  padding: 5px 7px; border-radius: 4px;
+  font-family: var(--mono); font-size: 6.5px;
+  line-height: 1.35; letter-spacing: 0.01em;
+}
+.cc-pattern strong { font-weight: 600; color: var(--accent-soft); }
+.cc-pattern span { color: var(--ink); opacity: 0.92; }
+
 /* DEMO 2 */
 .bc-demo { position: relative; width: 100%; height: 100%; background: var(--bg); padding: 24px 8px 8px; display: flex; flex-direction: column; color: var(--ink); overflow: hidden; }
-.bc-head { font-family: var(--serif); font-size: 8px; font-weight: 300; color: var(--ink-dim); padding-top: 4px; margin-bottom: 2px; }
-.bc-amount { font-family: var(--serif); font-weight: 200; font-size: 20px; line-height: 1; letter-spacing: -0.03em; color: var(--cyan); margin-bottom: 2px; font-variation-settings: 'opsz' 144; }
+.bc-head { font-family: var(--serif); font-size: 8px; font-weight: 400; color: var(--ink-dim); padding-top: 4px; margin-bottom: 2px; }
+.bc-amount { font-family: var(--serif); font-weight: 400; font-size: 20px; line-height: 1; letter-spacing: -0.03em; color: var(--cyan); margin-bottom: 2px; font-variation-settings: 'opsz' 144; }
 .bc-amount .tick { font-family: var(--mono); font-size: 7px; color: var(--ink-dim); }
 .bc-sub { font-size: 6px; color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
 .bc-sub .live { color: var(--cyan); }
-.bc-canvas { flex: 1; position: relative; margin: 3px 0; border-radius: 8px; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(92,240,224,0.06), transparent 60%), #0e0e11; }
+.bc-canvas { flex: 1; position: relative; margin: 3px 0; border-radius: 8px; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(248,220,170,0.05), transparent 60%), #0e0e11; }
 .bc-canvas svg { width: 100%; height: 100%; display: block; }
 .node { fill: var(--bg); stroke: var(--cyan); stroke-width: 1.2; transition: fill 0.3s; }
-.node.active { fill: var(--cyan); filter: drop-shadow(0 0 6px rgba(92,240,224,0.8)); }
+.node.active { fill: var(--cyan); filter: drop-shadow(0 0 6px rgba(248,220,170,0.7)); }
 .node-label { fill: var(--ink-dim); font-family: var(--mono); font-size: 5.5px; letter-spacing: 0.1em; text-transform: uppercase; }
 .node-label.active { fill: var(--cyan); }
 .flow-line { stroke: var(--ink-faint); stroke-width: 0.8; fill: none; opacity: 0.5; }
-.token { fill: var(--cyan); filter: drop-shadow(0 0 4px rgba(92,240,224,0.9)); }
+.token { fill: var(--cyan); filter: drop-shadow(0 0 4px rgba(248,220,170,0.8)); }
 .bc-controls { display: flex; gap: 4px; margin-top: 5px; font-size: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
 .bc-chip { flex: 1; padding: 5px 2px; background: var(--bg-2); border: 1px solid var(--ink-faint); color: var(--ink-dim); border-radius: 4px; text-align: center; cursor: pointer; transition: all 0.25s var(--ease); font-family: var(--mono); }
 .bc-chip:hover { border-color: var(--cyan); color: var(--cyan); }
-.bc-chip.active { background: var(--cyan); color: var(--bg); border-color: var(--cyan); box-shadow: 0 0 14px rgba(92,240,224,0.4); }
+.bc-chip.active { background: var(--cyan); color: var(--bg); border-color: var(--cyan); box-shadow: 0 0 14px rgba(248,220,170,0.3); }
 .bc-footer { font-family: var(--mono); font-size: 5px; letter-spacing: 0.2em; color: var(--ink-faint); text-transform: uppercase; text-align: center; padding-top: 4px; }
 
 /* ========== EXPERIENCE ========== */
@@ -247,61 +414,61 @@ main { position: relative; z-index: 2; }
   align-items: end; margin-bottom: 32px;
 }
 .xp-head .tagline {
-  font-family: var(--serif); font-weight: 300;
-  font-size: clamp(28px, 4.2vw, 48px);
-  line-height: 1.05; letter-spacing: -0.03em;
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(30px, 4.2vw, 48px);
+  line-height: 1.1; letter-spacing: -0.02em;
   max-width: 22ch;
 }
-.xp-head .tagline em { color: var(--accent); font-style: italic; font-weight: 300; }
+.xp-head .tagline em { color: var(--accent); font-weight: 700; }
 .xp-head .section-label {
-  font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--accent);
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent-peach);
 }
 .xp-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 0;
   border-top: 1px solid var(--ink-faint);
 }
-.xp-col { padding: 24px 0; display: flex; flex-direction: column; gap: 12px; }
+.xp-col { padding: 28px 0; display: flex; flex-direction: column; gap: 14px; }
 .xp-col + .xp-col { border-left: 1px solid var(--ink-faint); padding-left: 36px; }
 .xp-col:first-child { padding-right: 36px; }
 .xp-role { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .xp-role .company {
-  font-family: var(--serif); font-weight: 400; font-style: italic;
-  font-size: clamp(18px, 1.6vw, 22px); letter-spacing: -0.01em;
-  color: var(--accent);
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(20px, 1.8vw, 24px); letter-spacing: -0.01em;
+  color: var(--accent-peach);
 }
 .xp-role .years {
-  font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--ink-dim);
 }
 .xp-sub {
-  font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.15em; text-transform: uppercase;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--ink-dim);
-  padding-bottom: 12px; border-bottom: 1px solid var(--ink-faint);
+  padding-bottom: 14px; border-bottom: 1px solid var(--ink-faint);
 }
-.xp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.xp-bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .xp-bullets li {
-  font-family: var(--serif); font-weight: 300;
-  font-size: 14px; line-height: 1.45;
+  font-family: var(--serif); font-weight: 400;
+  font-size: 17px; line-height: 1.55;
   color: var(--ink);
-  padding-left: 20px;
+  padding-left: 22px;
   position: relative;
 }
-.xp-bullets li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--accent); font-family: var(--mono); }
-.xp-bullets li strong { color: var(--accent); font-weight: 400; font-style: italic; }
+.xp-bullets li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--ink-dim); font-family: var(--mono); }
+.xp-bullets li strong { color: var(--accent-soft); font-weight: 600; }
 
 .now-row {
   margin-top: 24px; padding: 20px 0;
   border-top: 1px solid var(--ink-faint); border-bottom: 1px solid var(--ink-faint);
   display: grid; grid-template-columns: 100px 1fr auto; gap: 20px; align-items: center;
 }
-.now-row .stamp { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
-.now-row .text { font-family: var(--serif); font-weight: 300; font-size: clamp(16px, 2vw, 22px); line-height: 1.3; letter-spacing: -0.01em; }
-.now-row .text strong { color: var(--accent); font-weight: 400; font-style: italic; }
-.now-row .chip { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-dim); padding: 8px 14px; border: 1px solid var(--ink-faint); border-radius: 2px; }
+.now-row .stamp { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-olive); }
+.now-row .text { font-family: var(--serif); font-weight: 500; font-size: clamp(17px, 2vw, 23px); line-height: 1.4; letter-spacing: -0.01em; }
+.now-row .text strong { color: var(--accent-soft); font-weight: 700; }
+.now-row .chip { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-dim); padding: 8px 14px; border: 1px solid var(--ink-faint); border-radius: 2px; }
 
 /* ========== CTA ========== */
 .cta-block {
@@ -310,26 +477,26 @@ main { position: relative; z-index: 2; }
 }
 .cta {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 20px;
+  padding: 18px 22px;
   border: 1px solid var(--ink-faint); border-radius: 2px;
-  font-size: 12px; letter-spacing: 0.05em;
+  font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
   transition: all 0.3s var(--ease);
   position: relative; overflow: hidden;
 }
-.cta::before { content: ""; position: absolute; inset: 0; background: var(--accent); transform: translateX(-101%); transition: transform 0.4s var(--ease-out); z-index: 0; }
+.cta::before { content: ""; position: absolute; inset: 0; background: var(--accent-olive); transform: translateX(-101%); transition: transform 0.4s var(--ease-out); z-index: 0; }
 .cta:hover::before, .cta:focus::before { transform: translateX(0); }
-.cta:hover, .cta:focus { color: var(--bg); border-color: var(--accent); }
+.cta:hover, .cta:focus { color: var(--bg); border-color: var(--accent-olive); }
 .cta span { position: relative; z-index: 1; }
 .cta .arrow { font-family: var(--mono); transition: transform 0.3s var(--ease); }
 .cta:hover .arrow { transform: translateX(6px); }
-.cta.primary { border-color: var(--accent); color: var(--accent); }
+.cta.primary { border-color: var(--accent-olive); color: var(--accent-olive); }
 .cta.primary:hover { color: var(--bg); }
 
 .footer-sig {
-  margin-top: 24px; padding-top: 16px;
+  margin-top: 28px; padding-top: 18px;
   border-top: 1px solid var(--ink-faint);
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  font-size: 9px; letter-spacing: 0.2em;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
   color: var(--ink-faint); text-transform: uppercase;
 }
 
@@ -444,13 +611,13 @@ main { position: relative; z-index: 2; }
 .tweaks-panel .add-btn:hover { color: var(--accent); border-color: var(--accent); }
 .tweaks-panel .hint-text {
   font-size: 10px; color: var(--ink-faint);
-  font-family: var(--serif); font-style: italic;
+  font-family: var(--serif); 
   margin-top: 4px;
 }
 
-em.accent { color: var(--accent); font-style: italic; font-weight: 300; }
-em.cyan { color: var(--cyan); font-style: italic; font-weight: 300; }
-strong.accent { color: var(--accent); font-weight: 400; font-style: italic; }
+em.accent { color: var(--accent); font-weight: 500; font-style: normal; }
+em.cyan { color: var(--cyan); font-weight: 500; font-style: normal; }
+strong.accent { color: var(--accent); font-weight: 600; font-style: normal; }
 </style>
 </head>
 
@@ -470,6 +637,7 @@ strong.accent { color: var(--accent); font-weight: 400; font-style: italic; }
       <div>
         <div class="block-meta" id="metaLine"></div>
         <h1 id="heroTitle"></h1>
+        <p class="hero-caption" id="heroCaption"></p>
         <p class="prompt" id="heroPrompt"></p>
       </div>
       <div class="identity">
@@ -486,27 +654,74 @@ strong.accent { color: var(--accent); font-weight: 400; font-style: italic; }
           <div class="phone">
             <div class="phone-screen">
               <div class="ba-demo" id="baDemo">
+                <!-- BEFORE: plain Clubcard-style receipts list -->
                 <div class="ba-layer ba-before">
                   <div class="label">Now</div>
-                  <div class="mock-app">
-                    <div class="mock-header">Hey —</div>
-                    <div class="mock-balance">£2,847<span class="pence">.22</span></div>
-                    <div class="mock-sub">Main account</div>
-                    <div class="mock-row"><span class="merchant">Tesco</span><span class="amt">−£43.12</span></div>
-                    <div class="mock-row"><span class="merchant">Uber</span><span class="amt">−£12.40</span></div>
-                    <div class="mock-row"><span class="merchant">Costa</span><span class="amt">−£4.80</span></div>
-                    <div class="mock-row"><span class="merchant">Spotify</span><span class="amt">−£11.99</span></div>
+                  <div class="cc-app">
+                    <div class="cc-statusbar">
+                      <span>9:41</span>
+                      <span class="cc-sb-dots">● ● ●</span>
+                    </div>
+                    <div class="cc-appbar">
+                      <span class="cc-barcode" aria-hidden="true"></span>
+                      <span class="cc-brand">Clubcard</span>
+                      <span class="cc-appbar-more">⋯</span>
+                    </div>
+                    <div class="cc-screen-title">My rewards</div>
+                    <div class="cc-points">248<span class="cc-points-unit">pts</span></div>
+                    <div class="cc-points-sub">≈ £2.48 in vouchers</div>
+                    <div class="cc-section-head">Recent shops</div>
+                    <div class="cc-receipt">
+                      <div class="cc-receipt-date">Sat 5 Apr</div>
+                      <div class="cc-receipt-amt">£47.20</div>
+                    </div>
+                    <div class="cc-receipt">
+                      <div class="cc-receipt-date">Wed 2 Apr</div>
+                      <div class="cc-receipt-amt">£12.80</div>
+                    </div>
+                    <div class="cc-receipt">
+                      <div class="cc-receipt-date">Sat 29 Mar</div>
+                      <div class="cc-receipt-amt">£52.10</div>
+                    </div>
+                    <div class="cc-receipt">
+                      <div class="cc-receipt-date">Mon 24 Mar</div>
+                      <div class="cc-receipt-amt">£9.40</div>
+                    </div>
                   </div>
                 </div>
+                <!-- AFTER: Clubcard + intelligent insights, with interactive tabs -->
                 <div class="ba-layer ba-after" id="baAfter">
                   <div class="label">Change</div>
-                  <div class="mock-app">
-                    <div class="mock-header">Hey —</div>
-                    <div class="mock-balance">£2,847<span class="pence">.22</span></div>
-                    <div class="mock-sub">+ context</div>
-                    <div class="insight-pill"><strong>Heads up.</strong> 63% through eating-out budget, 11 days left. Reshuffle?</div>
-                    <div class="mock-row"><span class="merchant">Tesco</span><span class="amt">−£43.12</span></div>
-                    <div class="mock-row"><span class="merchant">Uber</span><span class="amt">−£12.40</span></div>
+                  <div class="cc-app cc-app--smart">
+                    <div class="cc-statusbar">
+                      <span>9:41</span>
+                      <span class="cc-sb-dots">● ● ●</span>
+                    </div>
+                    <div class="cc-appbar">
+                      <span class="cc-barcode" aria-hidden="true"></span>
+                      <span class="cc-brand">Clubcard</span>
+                      <span class="cc-brand-badge">insights</span>
+                    </div>
+                    <div class="cc-screen-title">Your shop, decoded</div>
+                    <!-- Tab selector — taps cycle content -->
+                    <div class="cc-tabs" id="ccTabs">
+                      <button class="cc-tab active" data-range="week">7 days</button>
+                      <button class="cc-tab" data-range="fortnight">2 weeks</button>
+                      <button class="cc-tab" data-range="month">Month</button>
+                    </div>
+                    <!-- Dynamic content driven by JS -->
+                    <div class="cc-smart" id="ccSmart">
+                      <div class="cc-smart-head">
+                        <span class="cc-smart-title">Your staples</span>
+                        <span class="cc-smart-sub" id="ccRangeLabel">— this week</span>
+                      </div>
+                      <div class="cc-staples" id="ccStaples"></div>
+                      <div class="cc-cat-head">By category</div>
+                      <div class="cc-cats" id="ccCats"></div>
+                      <div class="cc-pattern" id="ccPattern">
+                        <strong>Pattern.</strong> <span id="ccPatternText">You buy milk every 4.2 days.</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="ba-divider" id="baDivider"><div class="ba-handle">‹›</div></div>
@@ -607,6 +822,8 @@ strong.accent { color: var(--accent); font-weight: 400; font-style: italic; }
     <summary>Hero</summary>
     <label>Hero title <span class="hint-text">(use * for accent)</span></label>
     <input type="text" data-key="heroTitle" />
+    <label>Caption <span class="hint-text">(mono, under hello)</span></label>
+    <textarea data-key="heroCaption"></textarea>
     <label>Prompt <span class="hint-text">(use * for accent)</span></label>
     <textarea data-key="heroPrompt"></textarea>
   </details>
@@ -689,19 +906,20 @@ const DEFAULTS = /*EDITMODE-BEGIN*/{
   "status": "MMXXVI",
 
   "heroTitle": "hello*.*",
-  "heroPrompt": "Skip the CV. Let me *show you* two ideas — one in fintech, one in blockchain.",
+  "heroCaption": "You scanned. Good. I could hand you a CV...",
+  "heroPrompt": "Or I could *show you* how I'd change a product you already know.",
 
-  "idea1Tag": "Fintech · Before / after",
-  "idea1Title": "What's there. *What could be.*",
-  "idea1Caption": "Your balance tells you *what happened.* Give the same surface a little context — budgets, tempo, intent — and it can tell you *what's about to.*",
-  "idea1Hint": "Drag the divider",
+  "idea1Tag": "Grocery loyalty · Before / after",
+  "idea1Title": "Clubcard shows spend. It should show *patterns.*",
+  "idea1Caption": "Every scan is a signal. Rank the things you actually buy, cluster by category, and surface the rhythms — weekly, fortnightly, monthly. A loyalty card that earns its name.",
+  "idea1Hint": "Drag the divider · then tap the tabs",
 
   "idea2Tag": "Blockchain · Watch it settle",
-  "idea2Title": "Value should move. *Not wait.*",
-  "idea2Caption": "Cross-chain settlement *routed like packets* — pick a lane, or let an agent pick the cheapest one. Seconds, not days; treasury that actually breathes.",
+  "idea2Title": "Value should move. Not *wait.*",
+  "idea2Caption": "Cross-chain settlement routed like packets. Pick a lane, or let an agent pick the cheapest one. Seconds, not days — treasury that actually breathes.",
   "idea2Hint": "Try the speed chips",
 
-  "xpTagline": "The thinking came from *billions of rows* and *a slow-burn MBA.*",
+  "xpTagline": "The thinking came from billions of rows and *a slow-burn MBA.*",
 
   "col1Company": "J.P. Morgan",
   "col1Years": "2020 — 2024",
@@ -775,6 +993,8 @@ function render() {
 
   // Hero
   document.getElementById('heroTitle').innerHTML = fmt(state.heroTitle);
+  const heroCapEl = document.getElementById('heroCaption');
+  if (heroCapEl) heroCapEl.innerHTML = fmt(state.heroCaption || '');
   document.getElementById('heroPrompt').innerHTML = fmt(state.heroPrompt);
 
   // Ideas
@@ -871,10 +1091,6 @@ function tickClock() {
   document.getElementById('clock').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
 }
 tickClock(); setInterval(tickClock, 1000);
-document.addEventListener('mousemove', e => {
-  document.body.style.setProperty('--mx', (e.clientX / window.innerWidth * 100) + '%');
-  document.body.style.setProperty('--my', (e.clientY / window.innerHeight * 100) + '%');
-}, { passive: true });
 
 // ========== DEMO 1: BEFORE/AFTER ==========
 (function() {
@@ -910,6 +1126,107 @@ document.addEventListener('mousemove', e => {
       if (steps > 36) { clearInterval(id); setPct(50); }
     }, 28);
   }, 1400);
+})();
+
+// ========== DEMO 1 — CLUBCARD INTELLIGENCE TABS ==========
+(function() {
+  // Three dataset snapshots, keyed by tab
+  const DATA = {
+    week: {
+      label: '— this week',
+      staples: [
+        { name: 'Semi-skim milk 2L',   cat: 'Dairy',  freq: '2× this week' },
+        { name: 'Sourdough loaf',      cat: 'Bakery', freq: '1× / week' },
+        { name: 'Free-range eggs × 6', cat: 'Dairy',  freq: '1× / week' },
+      ],
+      cats: [
+        { name: 'Fresh',   pct: 48 },
+        { name: 'Pantry',  pct: 22 },
+        { name: 'Snacks',  pct: 18 },
+        { name: 'Drinks',  pct: 12 },
+      ],
+      pattern: 'You buy milk every 4.2 days.',
+    },
+    fortnight: {
+      label: '— past 2 weeks',
+      staples: [
+        { name: 'Semi-skim milk 2L',   cat: 'Dairy',   freq: '4× in 2 wks' },
+        { name: 'Chicken breast 500g', cat: 'Meat',    freq: '3× in 2 wks' },
+        { name: 'Bananas × 6',         cat: 'Produce', freq: '2× in 2 wks' },
+      ],
+      cats: [
+        { name: 'Fresh',   pct: 42 },
+        { name: 'Meat',    pct: 24 },
+        { name: 'Pantry',  pct: 20 },
+        { name: 'Snacks',  pct: 14 },
+      ],
+      pattern: 'Meat spend up 18% vs last fortnight.',
+    },
+    month: {
+      label: '— this month',
+      staples: [
+        { name: 'Semi-skim milk 2L',     cat: 'Dairy',   freq: '9× this month' },
+        { name: 'Bananas × 6',           cat: 'Produce', freq: '6× this month' },
+        { name: 'Chicken breast 500g',   cat: 'Meat',    freq: '5× this month' },
+      ],
+      cats: [
+        { name: 'Fresh',   pct: 45 },
+        { name: 'Pantry',  pct: 21 },
+        { name: 'Meat',    pct: 19 },
+        { name: 'Snacks',  pct: 10 },
+        { name: 'Drinks',  pct: 5  },
+      ],
+      pattern: 'Snacks peak on Fridays. Tip: top-up earlier to save trips.',
+    },
+  };
+
+  const tabsEl     = document.getElementById('ccTabs');
+  const staplesEl  = document.getElementById('ccStaples');
+  const catsEl     = document.getElementById('ccCats');
+  const patternEl  = document.getElementById('ccPatternText');
+  const rangeEl    = document.getElementById('ccRangeLabel');
+  if (!tabsEl) return; // defensive — in case markup not present
+
+  function render(range) {
+    const d = DATA[range];
+    rangeEl.textContent = d.label;
+
+    // staples
+    staplesEl.innerHTML = d.staples.map((s, i) => `
+      <div class="cc-staple">
+        <span class="cc-staple-rank">${String(i+1).padStart(2,'0')}</span>
+        <span class="cc-staple-name">${s.name}<span class="cat">${s.cat}</span></span>
+        <span class="cc-staple-freq">${s.freq}</span>
+      </div>
+    `).join('');
+
+    // categories — animate the bars by setting width after a tick
+    catsEl.innerHTML = d.cats.map(c => `
+      <div class="cc-cat-row">
+        <span class="cc-cat-name">${c.name}</span>
+        <span class="cc-cat-bar"><span class="cc-cat-fill" style="width:0%"></span></span>
+        <span class="cc-cat-pct">${c.pct}%</span>
+      </div>
+    `).join('');
+    requestAnimationFrame(() => {
+      catsEl.querySelectorAll('.cc-cat-fill').forEach((el, i) => {
+        el.style.width = d.cats[i].pct + '%';
+      });
+    });
+
+    patternEl.textContent = d.pattern;
+  }
+
+  tabsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.cc-tab');
+    if (!btn) return;
+    tabsEl.querySelectorAll('.cc-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.range);
+  });
+
+  // initial render
+  render('week');
 })();
 
 // ========== DEMO 2: BLOCKCHAIN ==========
